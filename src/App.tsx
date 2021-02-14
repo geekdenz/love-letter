@@ -18,6 +18,11 @@ function App() {
       <article>
         <LoveLetter />
       </article>
+      <footer>
+        <a href="https://github.com/geekdenz/love-letter">
+          https://github.com/geekdenz/love-letter
+        </a>
+      </footer>
     </div>
   );
 }
