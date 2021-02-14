@@ -3,6 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import { LoveLetter } from './LoveLetter';
 
+// import { createBrowserHistory } from 'history';
+
+// export const history = createBrowserHistory({
+//     basename: '' // process.env.PUBLIC_URL
+// });
+
 function App() {
   const queryString = document.location.search;
   const params = new URLSearchParams(queryString);
