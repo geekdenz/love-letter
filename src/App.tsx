@@ -22,7 +22,7 @@ function App() {
         </h1>
       </header>
       <article>
-        <LoveLetter />
+        <LoveLetter name={name} />
       </article>
       <footer>
         <a href="https://github.com/geekdenz/love-letter">

@@ -10,20 +10,46 @@ async function getLoveLetter() {
     })).json();
 }
 
-export class LoveLetter extends React.Component {
-    constructor(props: any) {
+interface LoveLetterProps {
+    name: string | null;
+}
+
+// pure function that can be unit tested
+export function replaceLastYouWithName(lines: string[], name: string): string[] {
+    const newLines = [...lines];
+    const regex = /\byou\b/;
+    for (let i = newLines.length - 1; i >= 0; --i) {
+        if (newLines[i] && newLines[i].match(regex)) { // understand truthy expressions
+            newLines[i] = newLines[i].replace(regex, `you, ${name}`);
+            break;
+        }
+    }
+    return newLines;
+}
+
+// understand ES6 and TypeScript classes with React JS
+export class LoveLetter extends React.Component<LoveLetterProps> {
+    constructor(props: LoveLetterProps) {
         super(props);
         this.state = {
-            text: 'Loading...',
+            texts: ['Loading...'],
         }
+    }
+    // understand life cycle events
+    componentDidMount() {
         const loveLetter = getLoveLetter();
         loveLetter.then(resp => {
+            const name = (this.props as {name: string}).name;
+            const lines = replaceLastYouWithName(resp.result as string[], name);
             this.setState({
-                text: resp.result.join(' ')
-            })
+                texts: lines,
+            });
         });
     }
     render() {
-        return (<p> {(this.state as any).text} </p>);
+        return ((this.state as any).texts as string[]).map(t =>
+            <p key={t}> {t} </p>);
+        // using text as key which is not best practice, but this is just a demo
+        // would normally use ID or similar and avoid index
     }
 }
